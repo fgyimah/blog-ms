@@ -16,12 +16,12 @@ app.post('/posts', (req, res) => {
   const id = randomBytes(4).toString('hex');
   const { title } = req.body;
 
-  post[id] = {
+  posts[id] = {
     id,
     title,
   };
 
-  res.status(201).json(post[id]);
+  res.status(201).json(posts[id]);
 });
 
 app.listen(4000, () => {
