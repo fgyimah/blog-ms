@@ -21,10 +21,14 @@ app.post('/posts', async (req, res) => {
     id,
     title,
   };
-  await axios.post('http://localhost:4005/events', {
-    type: 'PostCreated',
-    data: posts[id],
-  });
+  try {
+    await axios.post('http://event-bus-srv:4005/events', {
+      type: 'PostCreated',
+      data: posts[id],
+    });
+  } catch (error) {
+    console.error(error);
+  }
 
   res.status(201).json(posts[id]);
 });
@@ -36,6 +40,6 @@ app.post('/events', (req, res) => {
 });
 
 app.listen(4000, () => {
-  console.log('New version!');
+  console.log('Version update!');
   console.log('Posts service listening on port 4000');
 });
